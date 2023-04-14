@@ -18,7 +18,35 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
 export const auth = firebase.auth();
 // Initialize FirebaseUI
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
+const uiConfig = {
+  signInFlow: 'popup',
+  signInOptions: [
+    {
+      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      customParameters: {
+        prompt: 'select_account',
+      },
+      // Custom text for Google sign-in button
+      customLabel: 'Google',
+    },
+    {
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      // Custom text for email sign-in button
+      customLabel: 'Email',
+    },
+  ],
+  tosUrl: '/terms-of-service',
+  privacyPolicyUrl: '/privacy-policy',
+  signInSuccessUrl: '/',
+  callbacks: {
+    signInSuccessWithAuthResult: () => false,
+  },
+};
+
+
+export { firebase, ui, uiConfig };
