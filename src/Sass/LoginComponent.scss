@@ -1,6 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: gray;
+}
+
 .login-wrapper {
-    background: gray;
     text-align: center;
+    padding-top: 10rem;
+
+    .bustrak {
+      width: 20%;
+    }
     
     .auth-inputs {
       width: 35%;
@@ -68,11 +78,9 @@
     }  
   }
 
-  .google-btn-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  .google-btn {
+    margin: 0 auto;
+    width: 35%;
 
     .go-to-signup {
       font-size: 18px;

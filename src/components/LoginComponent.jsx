@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LoginApi from '../api/AuthApi';
-import { RegisterAPI } from '../api/AuthApi';
+import { RegisterAPI, GoogleSignInAPI } from '../api/AuthApi';
 import GoogleButton from 'react-google-button'
 import '../Sass/LoginComponent.scss';
 import Logo from "../assets/bustraklogo.jpg";
@@ -17,10 +17,15 @@ const LoginComponent = () => {
       return err
     }
   };
+
+   const googleSignIn = () => {
+    let response = GoogleSignInAPI();
+    console.log(response);
+  }
   return (
     
     <div className="login-wrapper">
-      <img src={Logo} className="carrerLinkLogo" />
+      <img src={Logo} className="bustrak" />
 
       <div className="auth-inputs">
         <h1 className="heading">Sign in</h1>
@@ -50,9 +55,7 @@ const LoginComponent = () => {
       </div>
       <hr className="hr-text" data-content="or" />
       <div className="google-btn-container">
-        <GoogleButton  className="google-btn" onClick={() => {
-           console.log('Google button click')
-        }} />
+         <GoogleButton  className="google-btn" onClick={googleSignIn} />
         <p className="go-to-signup">
           New to BusTrak?{" "}
           <span className="join-now" onClick={() => navigate("/register")}>
