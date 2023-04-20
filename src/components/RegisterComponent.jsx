@@ -1,24 +1,26 @@
 import { useState } from 'react';
-import LoginApi from '../api/AuthApi';
+
 import { RegisterAPI, GoogleSignInAPI } from '../api/AuthApi';
 import GoogleButton from 'react-google-button'
 import '../Sass/LoginComponent.scss';
 import Logo from "../assets/bustraklogo.jpg";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const LoginComponent = () => {
+
+const RegisterComponent = () => {
 
   let navigate = useNavigate();
   const [credentials, setCredentials] = useState({})
-  const login = async () => {
+  const register = async () => {
     try {
-      let res = LoginApi(credentials.email, credentials.password);
-      toast.success("You have successfully signed-in to CareerLink")
-      return res
+      let res = await RegisterAPI(credentials.email, credentials.password);
+      toast.success("Account created")
     } catch (err) {
-      return err
+      console.log(err);
+      toast.error("Cannot Create your Account");
     }
-  };
+  }
 
    const googleSignIn = () => {
     let response = GoogleSignInAPI();
@@ -27,11 +29,10 @@ const LoginComponent = () => {
   return (
     
     <div className="login-wrapper">
-      <img src={Logo} className="bustrak" />
+      <img src={Logo} className="carrerLinkLogo" />
 
       <div className="auth-inputs">
-        <h1 className="heading">Sign in</h1>
-        <p className="sub-heading">Stay informed while on the way.</p>
+        <h1 className="heading">Never miss your ride again: Track your bus in real-time with our convenient bus tracker.</h1>
 
         <div className="auth-form-inputs">
           <input
@@ -40,7 +41,7 @@ const LoginComponent = () => {
             }
             type="email"
             className="common-input"
-            placeholder="Email or Phone"
+            placeholder="Email or Phone number"
           />
           <input
             onChange={(event) =>
@@ -48,20 +49,20 @@ const LoginComponent = () => {
             }
             type="password"
             className="common-input"
-            placeholder="Password"
+             placeholder="Password (6 or more characters)"
           />
         </div>
-        <button onClick={login} className="login-btn">
-          Sign in
+        <button onClick={register} className="login-btn">
+          Agree & Join
         </button>
       </div>
       <hr className="hr-text" data-content="or" />
       <div className="google-btn-container">
-         <GoogleButton  className="google-btn" onClick={googleSignIn} />
+        <GoogleButton  className="google-btn" onClick={googleSignIn} />
         <p className="go-to-signup">
-          New to BusTrak?{" "}
-          <span className="join-now" onClick={() => navigate("/register")}>
-            Join now
+          Already on BusTrak?{" "}
+          <span className="join-now" onClick={() => navigate("/")}>
+            Sign in
           </span>
         </p>
       </div>
@@ -69,4 +70,4 @@ const LoginComponent = () => {
   )
 }
 
-export default LoginComponent;
+export default RegisterComponent;
