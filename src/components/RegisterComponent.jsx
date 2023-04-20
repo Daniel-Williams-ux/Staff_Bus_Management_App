@@ -25,7 +25,7 @@ const RegisterComponent = () => {
 
    const googleSignIn = () => {
     let response = GoogleSignInAPI();
-    console.log(response);
+    navigate("/home");
   }
   return (
     
